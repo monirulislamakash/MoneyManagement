@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock  %}
+{% block title %}Credit{% endblock  %}
+{% block body %}
+<div id="content" class="container" align='center'>
+<table class="table table-striped" style="width:50%;">
+  <thead>
+    <tr>
+      <th scope="col">Head Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in credit %}
+    <tr>
+      <td>{{i.Head_Name}}</td>
+      <td>{{i.Date}}</td>
+      <td>{{i.Amount}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div><div id="page" align='center'></div> 
+
+<div class="container" align='center'>
+<button id="submit" class="pdfbutton">Export to  PDF</button>
+</div>
+<!--PDF-->
+<script>
+var doc = new jsPDF(); 
+var specialElementHandlers = { 
+    '#editor': function (element, renderer) { 
+        return true; 
+    } 
+};
+$('#submit').click(function () { 
+    doc.fromHTML($('#content').html(), 15, 15, { 
+        'width': 190, 
+            'elementHandlers': specialElementHandlers 
+    }); 
+    doc.save('Student_Details.pdf'); 
+});
+</script>
+{% endblock  %}

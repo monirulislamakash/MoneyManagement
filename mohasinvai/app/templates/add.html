@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock  %}
+{% block title %}Add{% endblock  %}
+{% block body %}
+    <div class="container col-lg-5 mt-5 border border-#999 fcolor login_box">
+    {% if secces %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{secces}}</strong>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    <main class="form-signin">
+    <h4 class="mt-3 mb-3" align="center">Add a Deposit</h4>
+        <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3" style="width:48%;display:inline-block;">
+            <label for="exampleInputEmail1" class="form-label">Head Name</label>
+            <input name="headname" type="text" placeholder="Enter Head Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3" style="width:48%; float:right;display:inline-block;">
+            <label for="exampleInputEmail1" class="form-label">Amount</label>
+            <input name="amount" type="text" placeholder="Enter Amount" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <select name="deposit" class="form-select mb-3" aria-label="Default select example">
+            <option selected>Select Deposit Option</option>
+            <option>Debit</option>
+            <option>Credit</option>
+        </select>
+        <button class="w-100 btn btn-lg" type="submit" style="background:#37b34a; color:#fff;">Add</button>
+        <p class="mt-5 mb-3 text-muted">© Mohasin vai</p>
+        </form>
+    </main>
+    </div>
+{% endblock  %}
