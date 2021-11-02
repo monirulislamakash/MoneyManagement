@@ -8,6 +8,62 @@
 {% endblock  %}
 {% block title %}Home{% endblock  %}
 {% block body %}
+{% if close %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{close}}</strong>.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+  {% endif %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+      Opaning : {% for i in opaning %}{{i.Opaning}}{% endfor %}
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon">
+      </span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			</ul>
+			<form method="POST" action="{% url 'monthly' %}" class="d-flex">
+				{% csrf_token %}
+				<select name='Deposit' class="form-select select" aria-label="Default select example">
+					<option selected>Select Deposit Option</option>
+            <option>Debit</option>
+            <option>Credit</option>
+				  </select>
+
+				From<input name="datef" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        
+        To<input name="datet" type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			</div>
+		</div>
+	</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			</ul>
+			<form method="POST" action="{% url 'search' %}" class="d-flex">
+				{% csrf_token %}
+				<input name="vawcher" type="text" placeholder="Vaucher" class="form-control select" id="exampleInputEmail1" aria-describedby="emailHelp" style="width: 160PX;">
+				
+				<select name='Expens' class="form-select select" aria-label="Default select example">
+					  <option selected>Select Expens</option>
+            <option>Accounts Resive</option>
+            <option>Accounts Paya</option>
+            <option>Dirut Expens</option>
+            <option>Asset</option>
+				</select>
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			</div>
+		</div>
+	</nav>
 <div id="content" class="container" align='center'>
 <div class="container mt-3">
 <h4 align="center" style="width:48%;display:inline-block;">Debit</h4>
@@ -20,6 +76,8 @@
     <tr>
       <th scope="col">Head Name</th>
       <th scope="col">Date</th>
+      <th scope="col">Expen</th>
+      <th scope="col">Vaucher</th>
       <th scope="col">Amount</th>
     </tr>
   </thead>
@@ -28,10 +86,14 @@
     <tr>
       <td>{{i.Head_Name}}</td>
       <td>{{i.Date}}</td>
+      <td>{{i.Expans_type}}</td>
+      <td>{{i.Vaucher}}</td>
       <td>{{i.Amount}}</td>
     </tr>
     {% endfor %}
     <tr>
+      <td></td>
+      <td></td>
       <td></td>
       <td align="right">Totel</td>
       <td>{{total_dabit}}</td>
@@ -42,6 +104,8 @@
     <tr>
       <th scope="col">Head Name</th>
       <th scope="col">Date</th>
+      <th scope="col">Expen</th>
+      <th scope="col">Vaucher</th>
       <th scope="col">Amount</th>
     </tr>
   </thead>
@@ -50,10 +114,14 @@
     <tr>
       <td>{{i.Head_Name}}</td>
       <td>{{i.Date}}</td>
+      <td>{{i.Expans_type}}</td>
+      <td>{{i.Vaucher}}</td>
       <td>{{i.Amount}}</td>
     </tr>
     {% endfor %}
     <tr>
+      <td></td>
+      <td></td>
       <td></td>
       <td align="right">Totel</td>
       <td>{{total_credit}}</td>
@@ -63,8 +131,12 @@
 <hr align="center" style="width:89%; height:2px; display:block; margin:0 auto;">
 <table align="center" class="table table-striped" style="width:89%;">
     <tr>
-      <td align="right">Totel Income:{{total}}</td>
+    <form method="POST">
+      {% csrf_token %}
+      <input name="closing" type="text" value="{{total}}" style="display:none">
+      <td align="right">Totel Income:{{total}}  <button type="submit" class="btn btn-primary">Close</button></td>
     </tr>
+    </form>
 </table>
 </div><div id="page" align='center'></div> 
 

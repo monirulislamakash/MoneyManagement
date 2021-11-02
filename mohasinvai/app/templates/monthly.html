@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% endblock  %}
+{% block title %}Home{% endblock  %}
+{% block body %}
+<div id="content" class="container" align='center'>
+<div class="container mt-3">
+<h4 align="center" style="width:48%;display:inline-block;">Debit</h4>
+
+<h4 align="center" style="width:48%;display:inline-block;">Credit</h4>
+</div>
+<div id="content" class="container">
+<table class="table table-striped" style="width:48%; float:left;">
+  <thead>
+    <tr>
+      <th scope="col">Head Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Expen</th>
+      <th scope="col">Vaucher</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for i in debit %}
+    <tr>
+      <td>{{i.Head_Name}}</td>
+      <td>{{i.Date}}</td>
+      <td>{{i.Expans_type}}</td>
+      <td>{{i.Vaucher}}</td>
+      <td>{{i.Amount}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td align="right">Totel</td>
+      <td>{{total_dabit}}</td>
+    </tr>
+</table>
+<table class="table table-striped" style="width:48%; float:right;">
+  <thead>
+    <tr>
+      <th scope="col">Head Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Expen</th>
+      <th scope="col">Vaucher</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for i in credit %}
+    <tr>
+      <td>{{i.Head_Name}}</td>
+      <td>{{i.Date}}</td>
+      <td>{{i.Expans_type}}</td>
+      <td>{{i.Vaucher}}</td>
+      <td>{{i.Amount}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td align="right">Totel</td>
+      <td>{{total_credit}}</td>
+    </tr>
+</table>
+</div>
+<hr align="center" style="width:89%; height:2px; display:block; margin:0 auto;">
+<table align="center" class="table table-striped" style="width:89%;">
+    <tr>
+      <td align="right">Totel Income:{{total}}</td>
+    </tr>
+</table>
+</div><div id="page" align='center'></div> 
+
+<div class="container" align='center'>
+<button id="submit" class="pdfbutton">Export to  PDF</button>
+</div>
+<!--PDF-->
+<script>
+var doc = new jsPDF(); 
+var specialElementHandlers = { 
+    '#editor': function (element, renderer) { 
+        return true; 
+    } 
+};
+$('#submit').click(function () { 
+    doc.fromHTML($('#content').html(), 15, 15, { 
+        'width': 190, 
+            'elementHandlers': specialElementHandlers 
+    }); 
+    doc.save('Student_Details.pdf'); 
+});
+</script>
+{% endblock  %}

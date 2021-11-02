@@ -24,11 +24,23 @@
             <label for="exampleInputEmail1" class="form-label">Amount</label>
             <input name="amount" type="text" placeholder="Enter Amount" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
-        <select name="deposit" class="form-select mb-3" aria-label="Default select example">
+        <select name="deposit" class="form-select mb-3" aria-label="Default select example" style="width:48%;display:inline-block;">
             <option selected>Select Deposit Option</option>
             <option>Debit</option>
             <option>Credit</option>
         </select>
+        <select name="expans" class="form-select mb-3" aria-label="Default select example" style="width:48%; float:right;display:inline-block;">
+            <option value="" selected>Select Expens</option>
+            <option>Accounts Resive</option>
+            <option>Accounts Paya</option>
+            <option>Dirut Expens</option>
+            <option>Asset</option>
+        </select>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label" >Vaucher</label>
+            <input name="vaucher" type="text" placeholder="Enter Vaucher" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+
         <button class="w-100 btn btn-lg" type="submit" style="background:#37b34a; color:#fff;">Add</button>
         <p class="mt-5 mb-3 text-muted">© Mohasin vai</p>
         </form>
