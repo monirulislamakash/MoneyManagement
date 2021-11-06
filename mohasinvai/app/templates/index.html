@@ -15,8 +15,8 @@
         </div>
   {% endif %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-      Opaning : {% for i in opaning %}{{i.Opaning}}{% endfor %}
+		<div class="container">
+      Opaning :{{opaning}}
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon">
       </span>
@@ -25,6 +25,7 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 			</ul>
 			<form method="POST" action="{% url 'monthly' %}" class="d-flex">
+      <input name="head" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 				{% csrf_token %}
 				<select name='Deposit' class="form-select select" aria-label="Default select example">
 					<option selected>Select Deposit Option</option>
@@ -41,7 +42,7 @@
 		</div>
 	</nav>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
+		<div class="container">
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
@@ -66,12 +67,12 @@
 	</nav>
 <div id="content" class="container" align='center'>
 <div class="container mt-3">
-<h4 align="center" style="width:48%;display:inline-block;">Debit</h4>
+<h4 align="center" style="width:48%;display:inline-block;">Received Part</h4>
 
-<h4 align="center" style="width:48%;display:inline-block;">Credit</h4>
+<h4 align="center" style="width:48%;display:inline-block;">Payment Part</h4>
 </div>
 <div id="content" class="container">
-<table class="table table-striped" style="width:48%; float:left;">
+<table class="table table-striped" style="width:48%; float:right;">
   <thead>
     <tr>
       <th scope="col">Head Name</th>
@@ -99,7 +100,7 @@
       <td>{{total_dabit}}</td>
     </tr>
 </table>
-<table class="table table-striped" style="width:48%; float:right;">
+<table class="table table-striped" style="width:48%; float:left;">
   <thead>
     <tr>
       <th scope="col">Head Name</th>

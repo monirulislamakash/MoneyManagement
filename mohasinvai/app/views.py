@@ -16,7 +16,8 @@ def index(request):
         return render(request,"index.html",{"close":"Close Today"})
     debit=Debit.objects.filter(Date=today)
     credit=Credit.objects.filter(Date=today)
-    opana=Opaning.objects.filter(Date=today)
+    opana=Opaning.objects.get(Date=today)
+    opendu=opana.Opaning
     debittem=0
     credittem=0
     for i in debit:
@@ -25,31 +26,28 @@ def index(request):
     for i in credit:
         ftemp=int(i.Amount)
         credittem=credittem+ftemp
-    total=credittem-debittem
+    falftot=opana.Opaning+credittem
+    total=falftot-debittem
     sendvar={
         'debit':debit,
         'credit':credit,
         "total_dabit":debittem,
         'total_credit':credittem,
         'total':total,
-        "opaning":opana,
+        "opaning":opendu,
     }
     return render(request,"index.html",sendvar)
 def monthly(request):
+    head=request.POST.get("head")
     deposit=request.POST.get("Deposit")
     datef=request.POST.get("datef")
     datet=request.POST.get("datet")
     if request.method=='POST':
-        if deposit=="Debit":
-            fm=Debit.objects.filter(Date__lte=datef,Date__gte=datet)
+            fm=Debit.objects.filter(Head_Name=head,Date__lte=datef,Date__gte=datet)
+            fn=Credit.objects.filter(Head_Name=head,Date__lte=datef,Date__gte=datet)
             sent={
+                "credit":fn,
                 "debit":fm
-            }
-            return render(request,"monthly.html",sent)
-        else:
-            fm=Credit.objects.filter(Date__lte=datef,Date__gte=datet)
-            sent={
-                "credit":fm
             }
             return render(request,"monthly.html",sent)
     return render(request,"monthly.html")
